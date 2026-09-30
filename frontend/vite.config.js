@@ -12,7 +12,7 @@ import path from 'node:path';
  */
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const backendUrl = env.VITE_PROXY_TARGET || 'http://localhost:8000';
+  const backendUrl = env.VITE_PROXY_TARGET || 'https://honeychain-lgj8.onrender.com';
 
   return {
     plugins: [react()],
