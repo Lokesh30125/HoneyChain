@@ -300,14 +300,13 @@ class Settings(BaseSettings):
                     "BLOCKCHAIN_ENABLED is true but BLOCKCHAIN_BASE_URL is empty "
                     "(set the URL, or BLOCKCHAIN_ENABLED=false)"
                 )
-            for flag in (
-                "AUTH_EXPOSE_REFRESH_IN_BODY",
-                "LAB_ALLOW_RISK_OVERRIDE",
-                "LAB_DEMO_CONFIGURATION_ENABLED",
-                "LAB_DEMO_MEASUREMENTS_ENABLED",
-            ):
-                if getattr(self, flag, False):
-                    problems.append(f"{flag} is a development setting and must be false")
+            if self.AUTH_EXPOSE_REFRESH_IN_BODY:
+    problems.append("AUTH_EXPOSE_REFRESH_IN_BODY must be false")
+
+            if self.LAB_ALLOW_RISK_OVERRIDE and not self.LAB_DEMO_MEASUREMENTS_ENABLED:
+                problems.append(
+                    "LAB_ALLOW_RISK_OVERRIDE requires LAB_DEMO_MEASUREMENTS_ENABLED"
+                )
             if problems:
                 raise ValueError(
                     "Invalid production configuration: " + "; ".join(problems)
