@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Global styles.
+ *
+ * Only what must be global lives here: base typography, focus visibility and a
+ * couple of component classes built from design tokens. Component styling
+ * belongs in the components themselves.
+ */
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sand-50 text-ink antialiased;
+    font-feature-settings: 'kern';
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* Visible, consistent focus ring for keyboard users (WCAG 2.4.7). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-honey-500 ring-offset-2 ring-offset-sand-50;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+    letter-spacing: -0.01em;
+  }
+
+  /* Honour the user's motion preference across the whole app. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .hc-container {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Thin honeycomb-pattern band used behind hero/CTA sections. */
+  .hc-honeycomb {
+    background-image: radial-gradient(circle at 1px 1px, rgba(217, 154, 43, 0.18) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .hc-card {
+    @apply rounded-card border border-sand-300 bg-white shadow-card;
+  }
+
+  .hc-label {
+    @apply mb-1.5 block text-sm font-medium text-ink-soft;
+  }
+
+  /* Multi-line counterpart to `Input`, so a textarea cannot drift from it. */
+  .hc-textarea {
+    @apply w-full rounded-lg border border-sand-300 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-muted/70 transition-colors focus:outline-none focus:ring-2 focus:ring-honey-500;
+  }
+
+  .hc-link {
+    @apply text-forest-700 underline decoration-honey-400 decoration-2 underline-offset-2 transition-colors hover:text-forest-800 hover:decoration-honey-500;
+  }
+}

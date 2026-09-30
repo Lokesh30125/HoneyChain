@@ -1,0 +1,40 @@
+# ---------------------------------------------------------------------------
+# HoneyChain API — Python dependencies
+# Pinned to compatible ranges; install with:  pip install -r requirements.txt
+# ---------------------------------------------------------------------------
+
+# --- Web framework ---------------------------------------------------------
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# --- Data validation / settings -------------------------------------------
+pydantic==2.10.4
+pydantic-settings==2.7.0
+email-validator==2.2.0
+
+# --- Database --------------------------------------------------------------
+SQLAlchemy==2.0.36
+alembic==1.14.0
+psycopg[binary]==3.2.3
+# Test-only convenience: spins up a real PostgreSQL-compatible server when
+# DATABASE_URL is not provided. Also used by CI pipelines without a DB service.
+
+# --- Security --------------------------------------------------------------
+PyJWT==2.10.1
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.1
+
+# --- QR labels ---------------------------------------------------------------
+# Renders a package's QR identity as SVG. Imported only by the label module, so
+# the rest of the traceability layer has no imaging dependency at all.
+qrcode==8.0
+
+# --- Logging / utilities ---------------------------------------------------
+python-json-logger==3.2.1
+python-dotenv==1.0.1
+
+# --- Testing ---------------------------------------------------------------
+pytest==8.3.4
+pytest-cov==6.0.0
+httpx==0.28.1

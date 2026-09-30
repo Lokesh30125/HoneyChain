@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HoneyChain">
+  <defs>
+    <linearGradient id="honeyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2C765" />
+      <stop offset="100%" stop-color="#D99A2B" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#123020" />
+  <path d="M32 10 49 20v20L32 50 15 40V20z" fill="none" stroke="url(#honeyGrad)" stroke-width="3.5" stroke-linejoin="round" />
+  <path d="M32 22c5 0 9 3.6 9 8s-4 8-9 8-9-3.6-9-8 4-8 9-8z" fill="url(#honeyGrad)" opacity="0.9" />
+  <path d="M26 42h12" stroke="#F7F3EA" stroke-width="3" stroke-linecap="round" />
+</svg>

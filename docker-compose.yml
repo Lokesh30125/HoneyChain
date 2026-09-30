@@ -1,0 +1,54 @@
+# HoneyChain — production-compatible deployment.
+#
+#   cp .env.docker.example .env      # then fill in every REPLACE_… value
+#   docker compose up -d --build
+#
+# Three services: PostgreSQL, the API (migrates on start) and the web client
+# (nginx serving the build and proxying /api to the API). Only the web client
+# publishes a port; put a TLS terminator (or your cloud load balancer) in front
+# of it. The blockchain service is external and is reached by BLOCKCHAIN_BASE_URL.
+name: honeychain
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-honeychain}
+      POSTGRES_USER: ${POSTGRES_USER:-honeychain}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-honeychain}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-honeychain}
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api/v1
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+
+volumes:
+  pgdata:

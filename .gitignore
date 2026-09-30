@@ -1,0 +1,102 @@
+# ===========================================================================
+# HoneyChain — repository .gitignore
+# Nothing secret, generated or machine-specific belongs in version control.
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# Environment files — these hold credentials and must never be committed.
+# The *.example templates ARE committed (see the negation below).
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.development.example
+!.env.production.example
+!.env.docker.example
+!frontend/.env.example
+!backend/.env.example
+*.local
+
+# ---------------------------------------------------------------------------
+# Node / frontend
+# ---------------------------------------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+
+# ---------------------------------------------------------------------------
+# Python / backend
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Type checkers / linters
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+.tox/
+.nox/
+
+# Alembic / local database artefacts
+*.db
+*.sqlite3
+backend/tests/.pytest_fallback.db
+
+# ---------------------------------------------------------------------------
+# Editors and operating systems
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------------------
+# Logs and temporary output
+# ---------------------------------------------------------------------------
+*.log
+logs/
+tmp/
+.cache/
+
+# ---------------------------------------------------------------------------
+# Certificates and keys (TLS material, blockchain wallets, signing keys)
+# ---------------------------------------------------------------------------
+*.pem
+*.key
+*.crt
+*.p12
+*.keystore
+wallet.json
